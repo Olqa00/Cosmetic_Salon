@@ -20,4 +20,8 @@
     <ProjectReference Include="..\..\src\Infrastructure\CosmeticSalon.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
+  </ItemGroup>
+
 </Project>

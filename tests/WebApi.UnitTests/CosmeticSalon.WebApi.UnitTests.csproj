@@ -20,4 +20,8 @@
     <ProjectReference Include="..\..\src\WebApi\CosmeticSalon.WebApi.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
+  </ItemGroup>
+
 </Project>

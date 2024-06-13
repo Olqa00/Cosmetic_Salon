@@ -19,6 +19,7 @@
 
 	<ItemGroup>
 		<Using Include="FluentAssertions" />
+		<Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
 	</ItemGroup>
 
 	<ItemGroup>
