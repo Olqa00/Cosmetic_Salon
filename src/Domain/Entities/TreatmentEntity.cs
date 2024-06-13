@@ -11,8 +11,8 @@ public sealed class TreatmentEntity
     public TreatmentEntity(Guid id, string type, string name)
     {
         this.Id = id;
-        this.SetType(type);
         this.SetName(name);
+        this.SetType(type);
     }
 
     public void SetName(string name)
