@@ -5,8 +5,8 @@ using CosmeticSalon.Domain.Exceptions;
 public sealed class TreatmentEntity
 {
     public Guid Id { get; private set; }
-    public string Name { get; private set; }
-    public string Type { get; private set; }
+    public string Name { get; private set; } = string.Empty;
+    public string Type { get; private set; } = string.Empty;
 
     public TreatmentEntity(Guid id, string type, string name)
     {
