@@ -1,14 +1,15 @@
 ﻿namespace CosmeticSalon.Domain.Entities;
 
 using CosmeticSalon.Domain.Exceptions;
+using CosmeticSalon.Domain.Types;
 
 public sealed class TreatmentEntity
 {
-    public Guid Id { get; private set; }
+    public TreatmentId Id { get; private init; }
     public string Name { get; private set; }
     public string Type { get; private set; }
 
-    public TreatmentEntity(Guid id, string type, string name)
+    public TreatmentEntity(TreatmentId id, string type, string name)
     {
         this.Id = id;
         this.SetName(name);
