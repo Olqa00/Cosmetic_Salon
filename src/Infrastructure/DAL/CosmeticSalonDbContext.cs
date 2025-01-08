@@ -5,6 +5,7 @@ using CosmeticSalon.Domain.Entities;
 internal sealed class CosmeticSalonDbContext : DbContext
 {
     public DbSet<TreatmentEntity> Treatments { get; set; }
+    public DbSet<UserEntity> Users { get; set; }
 
     public CosmeticSalonDbContext(DbContextOptions<CosmeticSalonDbContext> dbContextOptions)
         : base(dbContextOptions)

@@ -4,6 +4,10 @@
     <ProjectReference Include="..\Domain\CosmeticSalon.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Using Include="CosmeticSalon.Domain.Types" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>

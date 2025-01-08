@@ -2,4 +2,4 @@
 
 using CosmeticSalon.Application.Abstractions;
 
-public sealed record SignUp(Guid UserId, string Username, string Email, string Password, string FirstName, string LastName, string Role) : ICommand;
+public sealed record SignUp(Guid UserId, string Username, string Password) : ICommand;
