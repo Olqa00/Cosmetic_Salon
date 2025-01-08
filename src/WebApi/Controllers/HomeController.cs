@@ -2,9 +2,8 @@ namespace CosmeticSalon.WebApi.Controllers;
 
 using System.Diagnostics;
 using CosmeticSalon.WebApi.Models;
-using Microsoft.AspNetCore.Mvc;
 
-public class HomeController : Controller
+public sealed class HomeController : ApiController
 {
     private readonly ILogger<HomeController> logger;
 
