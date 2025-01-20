@@ -15,6 +15,19 @@ internal sealed class TreatmentRepository : ITreatmentRepository
         this.treatments = dbContext.Treatments;
     }
 
+    public async Task AddTreatmentAsync(TreatmentEntity entity)
+    {
+        await this.dbContext.AddAsync(entity);
+    }
+
+    public async Task<TreatmentEntity?> GetByIdAsync(TreatmentId id)
+    {
+        var result = await this.treatments
+            .FindAsync(id);
+
+        return result;
+    }
+
     public async Task<IReadOnlyList<TreatmentEntity>> GetTreatmentsAsync()
     {
         var result = await this.treatments

@@ -1,8 +1,6 @@
 ﻿namespace CosmeticSalon.Application.Commands;
 
-using CosmeticSalon.Application.Abstractions;
-
-public sealed record SignUp : ICommand
+public sealed record class SignUp : IRequest
 {
     public required string Password { get; init; }
     public required Guid UserId { get; init; }

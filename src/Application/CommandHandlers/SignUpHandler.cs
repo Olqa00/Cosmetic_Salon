@@ -1,12 +1,10 @@
 ﻿namespace CosmeticSalon.Application.CommandHandlers;
 
-using CosmeticSalon.Application.Abstractions;
 using CosmeticSalon.Application.Commands;
 using CosmeticSalon.Application.Security;
 using CosmeticSalon.Domain.Entities;
-using CosmeticSalon.Domain.Types;
 
-internal sealed class SignUpHandler : ICommandHandler<SignUp>
+internal sealed class SignUpHandler : IRequestHandler<SignUp>
 {
     private readonly IPasswordManager passwordManager;
 
@@ -15,7 +13,7 @@ internal sealed class SignUpHandler : ICommandHandler<SignUp>
         this.passwordManager = passwordManager;
     }
 
-    public async Task HandleAsync(SignUp command)
+    public async Task Handle(SignUp command, CancellationToken cancellationToken)
     {
         // Validate input
 
