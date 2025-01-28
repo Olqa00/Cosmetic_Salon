@@ -18,6 +18,7 @@ internal sealed class TreatmentRepository : ITreatmentRepository
     public async Task AddTreatmentAsync(TreatmentEntity entity)
     {
         await this.dbContext.AddAsync(entity);
+        await this.dbContext.SaveChangesAsync();
     }
 
     public async Task<TreatmentEntity?> GetByIdAsync(TreatmentId id)
@@ -31,7 +32,7 @@ internal sealed class TreatmentRepository : ITreatmentRepository
     public async Task<IReadOnlyList<TreatmentEntity>> GetTreatmentsAsync()
     {
         var result = await this.treatments
-            .Include(treatment => treatment.Employees)
+            //.Include(treatment => treatment.Employees.AsQueryable())
             .ToListAsync();
 
         return result;
