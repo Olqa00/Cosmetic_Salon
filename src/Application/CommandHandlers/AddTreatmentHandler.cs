@@ -2,20 +2,29 @@
 
 using CosmeticSalon.Application.Commands;
 using CosmeticSalon.Application.Exceptions;
+using CosmeticSalon.Application.Extensions;
 using CosmeticSalon.Domain.Entities;
 using CosmeticSalon.Domain.Interfaces;
 
 internal sealed class AddTreatmentHandler : IRequestHandler<AddTreatment>
 {
+    private readonly ILogger<AddTreatmentHandler> logger;
     private readonly ITreatmentRepository repository;
 
-    public AddTreatmentHandler(ITreatmentRepository repository)
+    public AddTreatmentHandler(ILogger<AddTreatmentHandler> logger, ITreatmentRepository repository)
     {
+        this.logger = logger;
         this.repository = repository;
     }
 
     public async Task Handle(AddTreatment request, CancellationToken cancellationToken)
     {
+        using var loggerScope = this.logger.BeginPropertyScope(
+            (nameof(TreatmentId), request.Id)
+        );
+
+        this.logger.LogInformation("Try to add treatment");
+
         var treatmentId = new TreatmentId(request.Id);
         var treatment = await this.repository.GetByIdAsync(treatmentId);
 

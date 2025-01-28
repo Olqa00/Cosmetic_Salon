@@ -6,15 +6,19 @@ using CosmeticSalon.Domain.Entities;
 
 internal sealed class SignUpHandler : IRequestHandler<SignUp>
 {
+    private readonly ILogger<SignUpHandler> logger;
     private readonly IPasswordManager passwordManager;
 
-    public SignUpHandler(IPasswordManager passwordManager)
+    public SignUpHandler(ILogger<SignUpHandler> logger, IPasswordManager passwordManager)
     {
+        this.logger = logger;
         this.passwordManager = passwordManager;
     }
 
     public async Task Handle(SignUp command, CancellationToken cancellationToken)
     {
+        this.logger.LogInformation("Try to sign up");
+
         // Validate input
 
         // Validate if user exists( email or username)
