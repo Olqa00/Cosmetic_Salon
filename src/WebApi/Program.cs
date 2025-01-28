@@ -3,6 +3,8 @@ using CosmeticSalon.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Logging.AddSeq();
+
 builder.Services.AddControllersWithViews();
 
 builder.Services

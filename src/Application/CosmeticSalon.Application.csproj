@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="12.4.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -11,6 +12,7 @@
   <ItemGroup>
     <Using Include="CosmeticSalon.Domain.Types" />
     <Using Include="MediatR" />
+    <Using Include="Microsoft.Extensions.Logging" />
   </ItemGroup>
 
   <PropertyGroup>
