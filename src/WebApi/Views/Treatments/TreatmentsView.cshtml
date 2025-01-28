@@ -1,0 +1,31 @@
+﻿@model IReadOnlyList<CosmeticSalon.WebApi.Models.Treatment>
+
+<body>
+
+<h1>
+    Treatments View
+</h1>
+
+@foreach (var treatment in Model)
+{
+    <div>
+        @treatment.Id
+    </div>
+    <div>
+        @treatment.Name
+    </div>
+    <div>
+        @treatment.Type
+    </div>
+
+    @* foreach (var employee in treatment.Employees)
+    {
+        <div>
+            @employee.Id
+        </div>
+        <div>
+            @employee.Username
+        </div>
+    } *@
+}
+</body>

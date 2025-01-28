@@ -1,47 +1,33 @@
+using CosmeticSalon.Application;
 using CosmeticSalon.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddControllersWithViews();
 
 builder.Services
+    .AddApplication()
     .AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseExceptionHandler("/Home/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
 }
 
 app.UseHttpsRedirection();
+app.UseRouting();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching",
-};
+app.UseAuthorization();
 
-app.MapGet("/weatherforecast",
-        () =>
-        {
-            var forecast = Enumerable.Range(start: 1, count: 5).Select(index =>
-                    new WeatherForecast(
-                        DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                        Random.Shared.Next(minValue: -20, maxValue: 55),
-                        summaries[Random.Shared.Next(summaries.Length)]
-                    ))
-                .ToArray();
+app.UseStaticFiles();
 
-            return forecast;
-        })
-    .WithName("GetWeatherForecast")
-    .WithOpenApi();
+app.MapControllerRoute(
+    "default",
+    "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
-
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(this.TemperatureC / 0.5556);
-}

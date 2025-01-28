@@ -1,10 +1,10 @@
 ﻿namespace CosmeticSalon.Domain.Entities;
 
 using CosmeticSalon.Domain.Exceptions;
-using CosmeticSalon.Domain.Types;
 
 public sealed class TreatmentEntity
 {
+    public List<UserEntity> Employees { get; } = [];
     public TreatmentId Id { get; private init; }
     public string Name { get; private set; }
     public string Type { get; private set; }
