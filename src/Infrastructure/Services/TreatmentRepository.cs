@@ -50,7 +50,7 @@ internal sealed class TreatmentRepository : ITreatmentRepository
         this.logger.LogInformation("Try to get treatments from db");
 
         var result = await this.treatments
-            //.Include(treatment => treatment.Employees.AsQueryable())
+            //.Include(treatment => treatment.Employees)
             .ToListAsync();
 
         return result;
