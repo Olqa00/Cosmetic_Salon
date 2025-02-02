@@ -1,41 +1,34 @@
 ﻿namespace CosmeticSalon.Domain.Entities;
 
+using CosmeticSalon.Domain.Exceptions;
+using CosmeticSalon.Domain.ValueObjects;
+
 public sealed class UserEntity
 {
-    public string Email { get; private set; }
+    public Email Email { get; private set; }
     public string FirstName { get; private set; }
     public string FullName => $"{this.FirstName} {this.LastName}";
     public UserId Id { get; private init; }
     public string LastName { get; private set; }
     public string Password { get; private set; }
-    public string Role { get; private set; }
+    public Role Role { get; private set; }
     public List<TreatmentEntity> Treatments { get; } = [];
     public string Username { get; private set; }
 
-    public UserEntity(UserId id, string username, string password, string role)
+    public UserEntity(UserId id, Email email, string username, string password, Role role)
     {
         this.Id = id;
+        this.Email = email;
         this.Password = password;
         this.Username = username;
-
-        this.SetRole(role);
-    }
-
-    public void SetEmail(string email)
-    {
-        if (string.IsNullOrWhiteSpace(email))
-        {
-            //throw new TreatmentEmptyNameException(this.Id);
-        }
-
-        this.Email = email;
+        this.Role = role;
     }
 
     public void SetFirstName(string firstName)
     {
         if (string.IsNullOrWhiteSpace(firstName))
         {
-            //throw new TreatmentEmptyNameException(this.Id);
+            throw new UserEmptyFirstNameException(this.Id);
         }
 
         this.FirstName = firstName;
@@ -45,19 +38,9 @@ public sealed class UserEntity
     {
         if (string.IsNullOrWhiteSpace(lastName))
         {
-            //throw new TreatmentEmptyNameException(this.Id);
+            throw new UserEmptyLastNameException(this.Id);
         }
 
         this.LastName = lastName;
-    }
-
-    public void SetRole(string role)
-    {
-        if (string.IsNullOrWhiteSpace(role))
-        {
-            //throw new TreatmentEmptyNameException(this.Id);
-        }
-
-        this.Role = role;
     }
 }

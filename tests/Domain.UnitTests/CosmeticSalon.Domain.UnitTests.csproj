@@ -18,6 +18,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Using Include="CosmeticSalon.Domain.Types" />
 		<Using Include="FluentAssertions" />
 		<Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
 	</ItemGroup>
