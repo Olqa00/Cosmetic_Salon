@@ -1,10 +1,9 @@
 ﻿namespace CosmeticSalon.Infrastructure.Services;
 
-using CosmeticSalon.Application.Extensions;
 using CosmeticSalon.Domain.Entities;
 using CosmeticSalon.Domain.Interfaces;
 using CosmeticSalon.Infrastructure.DAL;
-using Microsoft.Extensions.Logging;
+using CosmeticSalon.Infrastructure.Extensions;
 
 internal sealed class TreatmentRepository : ITreatmentRepository
 {

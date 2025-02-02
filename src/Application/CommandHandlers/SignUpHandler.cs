@@ -3,6 +3,7 @@
 using CosmeticSalon.Application.Commands;
 using CosmeticSalon.Application.Security;
 using CosmeticSalon.Domain.Entities;
+using CosmeticSalon.Domain.ValueObjects;
 
 internal sealed class SignUpHandler : IRequestHandler<SignUp>
 {
@@ -27,9 +28,9 @@ internal sealed class SignUpHandler : IRequestHandler<SignUp>
         var securedPassword = this.passwordManager.Secure(command.Password);
 
         var userId = new UserId(command.UserId);
-        var userRole = "User";
+        var userRole = Role.User();
 
-        var user = new UserEntity(userId, command.Username, securedPassword, userRole);
+        var user = new UserEntity(userId, command.Email, command.Username, securedPassword, userRole);
 
         // Save to DB
     }
