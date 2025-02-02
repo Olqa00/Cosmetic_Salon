@@ -24,6 +24,11 @@
     <Using Include="Microsoft.EntityFrameworkCore" />
     <Using Include="Microsoft.EntityFrameworkCore.Metadata.Builders" />
     <Using Include="Microsoft.Extensions.DependencyInjection" />
+    <Using Include="Microsoft.Extensions.Logging" />
+  </ItemGroup>
+
+   <ItemGroup>
+    <InternalsVisibleTo Include="CosmeticSalon.Infrastructure.UnitTests" />
   </ItemGroup>
 
 </Project>
