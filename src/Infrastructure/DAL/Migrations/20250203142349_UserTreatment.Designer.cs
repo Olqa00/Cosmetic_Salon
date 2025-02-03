@@ -4,6 +4,7 @@ using CosmeticSalon.Infrastructure.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CosmeticSalon.Infrastructure.DAL.Migrations
 {
     [DbContext(typeof(CosmeticSalonDbContext))]
-    partial class CosmeticSalonDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250203142349_UserTreatment")]
+    partial class UserTreatment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

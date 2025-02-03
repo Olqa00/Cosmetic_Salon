@@ -21,5 +21,9 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<UserEntity>
             .HasConversion(x => x.Value, x => new Role(x))
             .IsRequired()
             .HasMaxLength(100);
+
+        builder.HasMany(user => user.Treatments)
+            .WithMany(treatment => treatment.Employees)
+            ;
     }
 }

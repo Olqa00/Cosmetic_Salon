@@ -6,10 +6,10 @@ using CosmeticSalon.Domain.ValueObjects;
 public sealed class UserEntity
 {
     public Email Email { get; private set; }
-    public string FirstName { get; private set; }
+    public string? FirstName { get; private set; }
     public string FullName => $"{this.FirstName} {this.LastName}";
     public UserId Id { get; private init; }
-    public string LastName { get; private set; }
+    public string? LastName { get; private set; }
     public string Password { get; private set; }
     public Role Role { get; private set; }
     public List<TreatmentEntity> Treatments { get; } = [];

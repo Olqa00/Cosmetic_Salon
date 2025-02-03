@@ -17,6 +17,7 @@ public static class DependencyInjection
         services.AddSqlServer(configuration);
 
         services.AddScoped<ITreatmentRepository, TreatmentRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
 
         return services;
     }
