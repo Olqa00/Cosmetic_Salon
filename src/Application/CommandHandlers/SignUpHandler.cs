@@ -26,6 +26,14 @@ internal sealed class SignUpHandler : IRequestHandler<SignUp>
 
         var email = new Email(command.Email);
         var emailExists = await this.userRepository.GetByEmailAsync(email);
+        var userId = new UserId(command.UserId);
+
+        var userIdExists = await this.userRepository.GetByIdAsync(userId);
+
+        if (userIdExists is not null)
+        {
+            throw new UserIdAlreadyExistsException(userId);
+        }
 
         if (emailExists is not null)
         {
@@ -41,7 +49,6 @@ internal sealed class SignUpHandler : IRequestHandler<SignUp>
 
         var securedPassword = this.passwordManager.Secure(command.Password);
 
-        var userId = new UserId(command.UserId);
         var userRole = Role.User();
 
         var user = new UserEntity(userId, email, command.Username, securedPassword, userRole);
