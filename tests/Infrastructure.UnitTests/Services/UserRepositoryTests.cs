@@ -8,10 +8,11 @@ using CosmeticSalon.Infrastructure.Services;
 [TestClass]
 public sealed class UserRepositoryTests
 {
-    private const string EMAIL = "email@o2.pl";
+    private const string EMAIL_STRING = "email@o2.pl";
     private const string PASSWORD = "password";
     private const string USERNAME = "username";
     private static readonly Guid USER_ID_GUID = Guid.NewGuid();
+    private static readonly Email EMAIL = new(EMAIL_STRING);
     private static readonly UserId USER_ID = new(USER_ID_GUID);
 
     private static readonly Role USER_ROLE = Role.User();
@@ -93,11 +94,33 @@ public sealed class UserRepositoryTests
     }
 
     [TestMethod]
-    public async Task GetUsersAsync_Should_GetUsers()
+    public async Task GetByUsernameAsync_Should_GetUser()
     {
         // Arrange
         var options = new DbContextOptionsBuilder<CosmeticSalonDbContext>()
             .UseInMemoryDatabase(databaseName: "User_Database_4")
+            .Options;
+
+        await using var dbContext = new CosmeticSalonDbContext(options);
+
+        var repository = new UserRepository(dbContext, this.logger);
+        await repository.AddUserAsync(this.userEntity);
+
+        // Act
+        var result = await repository.GetByUsernameAsync(USERNAME);
+
+        // Assert
+        result.Should()
+            .BeEquivalentTo(this.userEntity)
+            ;
+    }
+
+    [TestMethod]
+    public async Task GetUsersAsync_Should_GetUsers()
+    {
+        // Arrange
+        var options = new DbContextOptionsBuilder<CosmeticSalonDbContext>()
+            .UseInMemoryDatabase(databaseName: "User_Database_5")
             .Options;
 
         await using var dbContext = new CosmeticSalonDbContext(options);

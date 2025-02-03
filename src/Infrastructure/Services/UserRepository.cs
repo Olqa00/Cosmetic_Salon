@@ -31,16 +31,16 @@ internal sealed class UserRepository : IUserRepository
         await this.dbContext.SaveChangesAsync();
     }
 
-    public async Task<UserEntity?> GetByEmailAsync(string email)
+    public async Task<UserEntity?> GetByEmailAsync(Email email)
     {
         using var loggerScope = this.logger.BeginPropertyScope(
-            (nameof(Email), email)
+            (nameof(Email), email.Value)
         );
 
         this.logger.LogInformation("Try to get user by email from db");
 
         var result = await this.users
-            .SingleOrDefaultAsync(user => user.Email == email);
+            .SingleOrDefaultAsync(user => user.Email == email.Value);
 
         return result;
     }
@@ -55,6 +55,20 @@ internal sealed class UserRepository : IUserRepository
 
         var result = await this.users
             .FindAsync(id);
+
+        return result;
+    }
+
+    public Task<UserEntity?> GetByUsernameAsync(string username)
+    {
+        using var loggerScope = this.logger.BeginPropertyScope(
+            ("username", username)
+        );
+
+        this.logger.LogInformation("Try to get user by username from db");
+
+        var result = this.users
+            .SingleOrDefaultAsync(user => user.Username == username);
 
         return result;
     }
