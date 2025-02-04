@@ -1,4 +1,4 @@
-namespace CosmeticSalon.WebApi.Models;
+namespace CosmeticSalon.WebUI.Models;
 
 public class ErrorViewModel
 {

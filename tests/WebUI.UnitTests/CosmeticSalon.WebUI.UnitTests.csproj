@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\WebApi\CosmeticSalon.WebApi.csproj" />
+    <ProjectReference Include="..\..\src\WebUI\CosmeticSalon.WebUI.csproj" />
   </ItemGroup>
 
   <ItemGroup>

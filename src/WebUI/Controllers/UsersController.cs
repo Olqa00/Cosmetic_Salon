@@ -1,7 +1,7 @@
-﻿namespace CosmeticSalon.WebApi.Controllers;
+﻿namespace CosmeticSalon.WebUI.Controllers;
 
 using CosmeticSalon.Application.Commands;
-using CosmeticSalon.WebApi.Models;
+using CosmeticSalon.WebUI.Models;
 
 [ApiController]
 public sealed class UsersController : ApiController

@@ -1,7 +1,7 @@
-namespace CosmeticSalon.WebApi.Controllers;
+namespace CosmeticSalon.WebUI.Controllers;
 
 using System.Diagnostics;
-using CosmeticSalon.WebApi.Models;
+using CosmeticSalon.WebUI.Models;
 
 public sealed class HomeController : ApiController
 {
