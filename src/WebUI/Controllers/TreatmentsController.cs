@@ -2,53 +2,53 @@
 
 using CosmeticSalon.Application.Commands;
 using CosmeticSalon.Application.Queries;
-using CosmeticSalon.WebUI.Models;
+using CosmeticSalon.Application.ViewModels;
 
 [ApiController]
 public sealed class TreatmentsController : ApiController
 {
+    private readonly ILogger<TreatmentsController> logger;
+
+    public TreatmentsController(ILogger<TreatmentsController> logger)
+    {
+        this.logger = logger;
+    }
+
     [Route("AddTreatment")]
-    public IActionResult AddTreatmentView()
+    public IActionResult AddTreatmentView(CancellationToken cancellationToken = default)
     {
         return this.View();
     }
 
-    [HttpPost, Route("AddTreatment")]
-    public async Task<IActionResult> AddTreatmentView([FromForm] Treatment treatment)
+    [HttpPost, Route("AddTreatment"), ValidateAntiForgeryToken]
+    public async Task<IActionResult> AddTreatmentView([FromForm] Treatment treatment, CancellationToken cancellationToken = default)
     {
-        if (this.ModelState.IsValid is false)
+        try
         {
-            return this.View(treatment);
+            var id = Guid.NewGuid();
+
+            treatment = treatment with { Id = id };
+
+            var command = this.Mapper.Map<AddTreatment>(treatment);
+            await this.Mediator.Send(command, cancellationToken);
+
+            return await Task.FromResult(this.RedirectToAction(nameof(this.TreatmentsView)));
         }
-
-        var id = Guid.NewGuid();
-
-        var command = new AddTreatment
+        catch (Exception exception)
         {
-            Id = id,
-            Name = treatment.Name,
-            Type = treatment.Type,
-        };
+            this.logger.LogError(exception, "{Message}", exception.Message);
 
-        await this.Mediator.Send(command);
-
-        return this.RedirectToAction(nameof(this.TreatmentsView));
+            return await Task.FromResult(this.View());
+        }
     }
 
     [HttpGet, Route("GetTreatments")]
-    public async Task<IActionResult> TreatmentsView()
+    public async Task<IActionResult> TreatmentsView(CancellationToken cancellationToken = default)
     {
         var query = new GetTreatments();
 
-        var treatmentsEntities = await this.Mediator.Send(query);
+        var treatments = await this.Mediator.Send(query, cancellationToken);
 
-        var treatments = treatmentsEntities.Select(treatment => new Treatment
-        {
-            Id = treatment.Id.Value,
-            Name = treatment.Name,
-            Type = treatment.Type,
-        }).ToList();
-
-        return this.View(treatments);
+        return await Task.FromResult(this.View(treatments));
     }
 }

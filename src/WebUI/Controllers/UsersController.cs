@@ -1,37 +1,37 @@
 ﻿namespace CosmeticSalon.WebUI.Controllers;
 
 using CosmeticSalon.Application.Commands;
-using CosmeticSalon.WebUI.Models;
+using CosmeticSalon.Application.ViewModels;
 
 [ApiController]
 public sealed class UsersController : ApiController
 {
+    private readonly ILogger<UsersController> logger;
+
     [Route("SignUp")]
-    public IActionResult SignUpView()
+    public IActionResult SignUpView(CancellationToken cancellationToken = default)
     {
         return this.View();
     }
 
     [HttpPost, Route("SignUp")]
-    public async Task<IActionResult> SignUpView([FromForm] SignUpUser user)
+    public async Task<IActionResult> SignUpView([FromForm] SignUpUser user, CancellationToken cancellationToken = default)
     {
-        if (this.ModelState.IsValid is false)
+        try
         {
-            return this.View(user);
+            var id = Guid.NewGuid();
+            user = user with { Id = id };
+
+            var command = this.Mapper.Map<SignUp>(user);
+            await this.Mediator.Send(command, cancellationToken);
+
+            return await Task.FromResult(this.RedirectToPage("Index"));
         }
-
-        var id = Guid.NewGuid();
-
-        var command = new SignUp
+        catch (Exception exception)
         {
-            Email = user.Email,
-            Password = user.Password,
-            UserId = id,
-            Username = user.Username,
-        };
+            this.logger.LogError(exception, "{Message}", exception.Message);
 
-        await this.Mediator.Send(command);
-
-        return this.RedirectToPage("Index");
+            return await Task.FromResult(this.View());
+        }
     }
 }

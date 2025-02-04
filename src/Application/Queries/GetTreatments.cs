@@ -1,7 +1,7 @@
 ﻿namespace CosmeticSalon.Application.Queries;
 
-using CosmeticSalon.Domain.Entities;
+using CosmeticSalon.Application.ViewModels;
 
-public sealed class GetTreatments : IRequest<IReadOnlyList<TreatmentEntity>>
+public sealed class GetTreatments : IRequest<IReadOnlyList<Treatment>>
 {
 }

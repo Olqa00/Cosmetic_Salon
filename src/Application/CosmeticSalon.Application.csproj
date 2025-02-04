@@ -13,6 +13,7 @@
     <Using Include="CosmeticSalon.Domain.Types" />
     <Using Include="MediatR" />
     <Using Include="Microsoft.Extensions.Logging" />
+    <Using Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
 
   <PropertyGroup>
