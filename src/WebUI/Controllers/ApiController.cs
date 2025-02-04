@@ -1,4 +1,4 @@
-﻿namespace CosmeticSalon.WebApi.Controllers;
+﻿namespace CosmeticSalon.WebUI.Controllers;
 
 public class ApiController : Controller
 {

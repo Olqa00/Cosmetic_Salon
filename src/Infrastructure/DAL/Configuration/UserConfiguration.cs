@@ -12,14 +12,26 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<UserEntity>
         builder.Property(user => user.Id)
             .HasConversion(id => id.Value, id => new UserId(id));
 
-        builder.Property(x => x.Email)
-            .HasConversion(x => x.Value, x => new Email(x))
+        builder.HasIndex(user => user.Username).IsUnique();
+
+        builder.Property(user => user.Username)
             .IsRequired()
             .HasMaxLength(30);
 
-        builder.Property(x => x.Role)
-            .HasConversion(x => x.Value, x => new Role(x))
+        builder.HasIndex(user => user.Email).IsUnique();
+
+        builder.Property(user => user.Email)
+            .HasConversion(email => email.Value, email => new Email(email))
+            .IsRequired()
+            .HasMaxLength(30);
+
+        builder.Property(user => user.Role)
+            .HasConversion(role => role.Value, role => new Role(role))
             .IsRequired()
             .HasMaxLength(100);
+
+        builder.HasMany(user => user.Treatments)
+            .WithMany(treatment => treatment.Employees)
+            ;
     }
 }
