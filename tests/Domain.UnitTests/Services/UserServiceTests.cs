@@ -30,7 +30,7 @@ public sealed class UserServiceTests
     }
 
     [TestMethod]
-    public async Task CheckEmailExistenceAsync_Should_NotThrowException()
+    public async Task CheckEmailExistsAsync_Should_NotThrowException()
     {
         // Arrange
         this.userRepository
@@ -40,7 +40,7 @@ public sealed class UserServiceTests
         var userService = new UserService(this.logger, this.userRepository);
 
         // Act
-        var action = async () => await userService.CheckEmailExistenceAsync(USER_EMAIL, CANCELLATION_TOKEN);
+        var action = async () => await userService.CheckEmailExistsAsync(USER_EMAIL, CANCELLATION_TOKEN);
 
         // Assert
         await action.Should()
@@ -49,7 +49,7 @@ public sealed class UserServiceTests
     }
 
     [TestMethod]
-    public async Task CheckEmailExistenceAsync_Should_ThrowsEmailAlreadyExistsException()
+    public async Task CheckEmailExistsAsync_Should_ThrowsEmailAlreadyExistsException()
     {
         // Arrange
         this.userRepository
@@ -59,7 +59,7 @@ public sealed class UserServiceTests
         var userService = new UserService(this.logger, this.userRepository);
 
         // Act
-        var action = async () => await userService.CheckEmailExistenceAsync(USER_EMAIL, CANCELLATION_TOKEN);
+        var action = async () => await userService.CheckEmailExistsAsync(USER_EMAIL, CANCELLATION_TOKEN);
 
         // Assert
         await action.Should()
@@ -68,7 +68,7 @@ public sealed class UserServiceTests
     }
 
     [TestMethod]
-    public async Task CheckUserIdExistenceAsync_Should_NotThrowException()
+    public async Task CheckUserIdExistsAsync_Should_NotThrowException()
     {
         // Arrange
         this.userRepository
@@ -78,7 +78,7 @@ public sealed class UserServiceTests
         var userService = new UserService(this.logger, this.userRepository);
 
         // Act
-        var action = async () => await userService.CheckUserIdExistenceAsync(USER_ID, CANCELLATION_TOKEN);
+        var action = async () => await userService.CheckUserIdExistsAsync(USER_ID, CANCELLATION_TOKEN);
 
         // Assert
         await action.Should()
@@ -87,7 +87,7 @@ public sealed class UserServiceTests
     }
 
     [TestMethod]
-    public async Task CheckUserIdExistenceAsync_Should_ThrowsUserIdAlreadyExistsException()
+    public async Task CheckUserIdExistsAsync_Should_ThrowsUserIdAlreadyExistsException()
     {
         // Arrange
         this.userRepository
@@ -97,7 +97,7 @@ public sealed class UserServiceTests
         var userService = new UserService(this.logger, this.userRepository);
 
         // Act
-        var action = async () => await userService.CheckUserIdExistenceAsync(USER_ID, CANCELLATION_TOKEN);
+        var action = async () => await userService.CheckUserIdExistsAsync(USER_ID, CANCELLATION_TOKEN);
 
         // Assert
         await action.Should()
@@ -106,7 +106,7 @@ public sealed class UserServiceTests
     }
 
     [TestMethod]
-    public async Task CheckUsernameExistenceAsync_Should_NotThrowException()
+    public async Task CheckUsernameExistsAsync_Should_NotThrowException()
     {
         // Arrange
         this.userRepository
@@ -116,7 +116,7 @@ public sealed class UserServiceTests
         var userService = new UserService(this.logger, this.userRepository);
 
         // Act
-        var action = async () => await userService.CheckUsernameExistenceAsync(USERNAME, CANCELLATION_TOKEN);
+        var action = async () => await userService.CheckUsernameExistsAsync(USERNAME, CANCELLATION_TOKEN);
 
         // Assert
         await action.Should()
@@ -125,7 +125,7 @@ public sealed class UserServiceTests
     }
 
     [TestMethod]
-    public async Task CheckUsernameExistenceAsync_Should_ThrowsUsernameAlreadyExistsException()
+    public async Task CheckUsernameExistsAsync_Should_ThrowsUsernameAlreadyExistsException()
     {
         // Arrange
         this.userRepository
@@ -135,7 +135,7 @@ public sealed class UserServiceTests
         var userService = new UserService(this.logger, this.userRepository);
 
         // Act
-        var action = async () => await userService.CheckUsernameExistenceAsync(USERNAME, CANCELLATION_TOKEN);
+        var action = async () => await userService.CheckUsernameExistsAsync(USERNAME, CANCELLATION_TOKEN);
 
         // Assert
         await action.Should()

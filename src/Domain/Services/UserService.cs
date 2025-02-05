@@ -17,7 +17,7 @@ internal sealed class UserService : IUserService
         this.userRepository = userRepository;
     }
 
-    public async Task CheckEmailExistenceAsync(Email email, CancellationToken cancellationToken = default)
+    public async Task CheckEmailExistsAsync(Email email, CancellationToken cancellationToken = default)
     {
         this.logger.LogInformation("Try to check if user with email {email} exists", email);
 
@@ -29,7 +29,7 @@ internal sealed class UserService : IUserService
         }
     }
 
-    public async Task CheckUserIdExistenceAsync(UserId id, CancellationToken cancellationToken = default)
+    public async Task CheckUserIdExistsAsync(UserId id, CancellationToken cancellationToken = default)
     {
         this.logger.LogInformation("Try to check if user with id {id} exists", id);
 
@@ -41,7 +41,7 @@ internal sealed class UserService : IUserService
         }
     }
 
-    public async Task CheckUsernameExistenceAsync(string username, CancellationToken cancellationToken = default)
+    public async Task CheckUsernameExistsAsync(string username, CancellationToken cancellationToken = default)
     {
         this.logger.LogInformation("Try to check if user with username {username} exists", username);
 

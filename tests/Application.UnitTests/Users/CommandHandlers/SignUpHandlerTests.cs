@@ -33,15 +33,15 @@ public sealed class SignUpHandlerTests
             .Returns(SECURED_PASSWORD);
 
         this.userService
-            .CheckEmailExistenceAsync(Arg.Any<Email>(), Arg.Any<CancellationToken>())
+            .CheckEmailExistsAsync(Arg.Any<Email>(), Arg.Any<CancellationToken>())
             .Returns(Task.CompletedTask);
 
         this.userService
-            .CheckUserIdExistenceAsync(Arg.Any<UserId>(), Arg.Any<CancellationToken>())
+            .CheckUserIdExistsAsync(Arg.Any<UserId>(), Arg.Any<CancellationToken>())
             .Returns(Task.CompletedTask);
 
         this.userService
-            .CheckUsernameExistenceAsync(Arg.Any<string>(), Arg.Any<CancellationToken>())
+            .CheckUsernameExistsAsync(Arg.Any<string>(), Arg.Any<CancellationToken>())
             .Returns(Task.CompletedTask);
 
         this.handler = new SignUpHandler(this.logger, this.passwordManager, this.userService);
