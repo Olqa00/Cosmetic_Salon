@@ -1,4 +1,4 @@
-﻿namespace CosmeticSalon.Application.Security;
+﻿namespace CosmeticSalon.Application.Users.Security;
 
 public interface IPasswordManager
 {

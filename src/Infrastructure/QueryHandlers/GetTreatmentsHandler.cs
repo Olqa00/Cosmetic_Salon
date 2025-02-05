@@ -1,7 +1,7 @@
 ﻿namespace CosmeticSalon.Infrastructure.QueryHandlers;
 
-using CosmeticSalon.Application.Queries;
-using CosmeticSalon.Application.ViewModels;
+using CosmeticSalon.Application.Treatments.Queries;
+using CosmeticSalon.Application.Treatments.ViewModels;
 using CosmeticSalon.Domain.Interfaces;
 using global::AutoMapper;
 

@@ -1,4 +1,4 @@
-﻿namespace CosmeticSalon.Application.ViewModels;
+﻿namespace CosmeticSalon.Application.Users.ViewModels;
 
 public sealed record class SignUpUser
 {

@@ -1,4 +1,4 @@
-﻿namespace CosmeticSalon.Application.ViewModels;
+﻿namespace CosmeticSalon.Application.Treatments.ViewModels;
 
 public sealed record class Treatment
 {

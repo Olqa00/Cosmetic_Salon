@@ -1,4 +1,4 @@
-﻿namespace CosmeticSalon.Application.Exceptions;
+﻿namespace CosmeticSalon.Application.Common.Exceptions;
 
 public abstract class ApplicationException : Exception
 {

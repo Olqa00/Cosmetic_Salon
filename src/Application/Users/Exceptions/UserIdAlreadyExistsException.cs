@@ -1,4 +1,6 @@
-﻿namespace CosmeticSalon.Application.Exceptions;
+﻿namespace CosmeticSalon.Application.Users.Exceptions;
+
+using CosmeticSalon.Application.Common.Exceptions;
 
 public sealed class UserIdAlreadyExistsException : ApplicationException
 {

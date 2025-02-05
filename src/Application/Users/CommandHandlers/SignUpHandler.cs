@@ -1,8 +1,8 @@
-﻿namespace CosmeticSalon.Application.CommandHandlers;
+﻿namespace CosmeticSalon.Application.Users.CommandHandlers;
 
-using CosmeticSalon.Application.Commands;
-using CosmeticSalon.Application.Exceptions;
-using CosmeticSalon.Application.Security;
+using CosmeticSalon.Application.Users.Commands;
+using CosmeticSalon.Application.Users.Exceptions;
+using CosmeticSalon.Application.Users.Security;
 using CosmeticSalon.Domain.Entities;
 using CosmeticSalon.Domain.Interfaces;
 using CosmeticSalon.Domain.ValueObjects;

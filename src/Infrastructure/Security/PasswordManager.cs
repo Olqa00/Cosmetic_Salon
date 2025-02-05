@@ -1,6 +1,6 @@
 ﻿namespace CosmeticSalon.Infrastructure.Security;
 
-using CosmeticSalon.Application.Security;
+using CosmeticSalon.Application.Users.Security;
 using CosmeticSalon.Domain.Entities;
 
 internal sealed class PasswordManager : IPasswordManager

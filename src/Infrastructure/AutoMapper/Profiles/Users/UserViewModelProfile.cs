@@ -1,8 +1,8 @@
 ﻿namespace CosmeticSalon.Infrastructure.AutoMapper.Profiles.Users;
 
 using global::AutoMapper;
-using SignUp = CosmeticSalon.Application.Commands.SignUp;
-using SignUpViewModel = CosmeticSalon.Application.ViewModels.SignUpUser;
+using SignUp = CosmeticSalon.Application.Users.Commands.SignUp;
+using SignUpViewModel = CosmeticSalon.Application.Users.ViewModels.SignUpUser;
 
 internal sealed class UserViewModelProfile : Profile
 {

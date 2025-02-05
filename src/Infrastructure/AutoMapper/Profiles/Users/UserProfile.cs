@@ -2,7 +2,7 @@
 
 using global::AutoMapper;
 using Model = CosmeticSalon.Domain.Entities.UserEntity;
-using ViewModel = CosmeticSalon.Application.ViewModels.User;
+using ViewModel = CosmeticSalon.Application.Users.ViewModels.User;
 
 internal sealed class UserProfile : Profile
 {
