@@ -1,7 +1,6 @@
 ﻿namespace CosmeticSalon.Application.Users.CommandHandlers;
 
 using CosmeticSalon.Application.Users.Commands;
-using CosmeticSalon.Application.Users.Exceptions;
 using CosmeticSalon.Application.Users.Security;
 using CosmeticSalon.Domain.Entities;
 using CosmeticSalon.Domain.Interfaces;
@@ -11,13 +10,13 @@ internal sealed class SignUpHandler : IRequestHandler<SignUp>
 {
     private readonly ILogger<SignUpHandler> logger;
     private readonly IPasswordManager passwordManager;
-    private readonly IUserRepository userRepository;
+    private readonly IUserService userService;
 
-    public SignUpHandler(ILogger<SignUpHandler> logger, IPasswordManager passwordManager, IUserRepository userRepository)
+    public SignUpHandler(ILogger<SignUpHandler> logger, IPasswordManager passwordManager, IUserService userService)
     {
         this.logger = logger;
         this.passwordManager = passwordManager;
-        this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     public async Task Handle(SignUp command, CancellationToken cancellationToken)
@@ -25,27 +24,11 @@ internal sealed class SignUpHandler : IRequestHandler<SignUp>
         this.logger.LogInformation("Try to sign up");
 
         var email = new Email(command.Email);
-        var emailExists = await this.userRepository.GetByEmailAsync(email);
         var userId = new UserId(command.UserId);
 
-        var userIdExists = await this.userRepository.GetByIdAsync(userId);
-
-        if (userIdExists is not null)
-        {
-            throw new UserIdAlreadyExistsException(userId);
-        }
-
-        if (emailExists is not null)
-        {
-            throw new EmailAlreadyExistsException(email);
-        }
-
-        var usernameExists = await this.userRepository.GetByUsernameAsync(command.Username);
-
-        if (usernameExists is not null)
-        {
-            throw new UsernameAlreadyExistsException(command.Username);
-        }
+        await this.userService.CheckEmailExistenceAsync(email, cancellationToken);
+        await this.userService.CheckUserIdExistenceAsync(userId, cancellationToken);
+        await this.userService.CheckUsernameExistenceAsync(command.Username, cancellationToken);
 
         var securedPassword = this.passwordManager.Secure(command.Password);
 
@@ -53,6 +36,6 @@ internal sealed class SignUpHandler : IRequestHandler<SignUp>
 
         var user = new UserEntity(userId, email, command.Username, securedPassword, userRole);
 
-        await this.userRepository.AddUserAsync(user);
+        await this.userService.CreateUserAsync(user, cancellationToken);
     }
 }
