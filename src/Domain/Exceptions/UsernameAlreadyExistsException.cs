@@ -1,6 +1,6 @@
-﻿namespace CosmeticSalon.Application.Exceptions;
+﻿namespace CosmeticSalon.Domain.Exceptions;
 
-public sealed class UsernameAlreadyExistsException : ApplicationException
+public sealed class UsernameAlreadyExistsException : DomainException
 {
     public UsernameAlreadyExistsException(string username)
         : base($"Username {username} already exists")

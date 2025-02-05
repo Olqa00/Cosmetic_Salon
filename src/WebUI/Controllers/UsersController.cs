@@ -1,12 +1,17 @@
 ﻿namespace CosmeticSalon.WebUI.Controllers;
 
-using CosmeticSalon.Application.Commands;
-using CosmeticSalon.Application.ViewModels;
+using CosmeticSalon.Application.Users.Commands;
+using CosmeticSalon.Application.Users.ViewModels;
 
 [ApiController]
 public sealed class UsersController : ApiController
 {
     private readonly ILogger<UsersController> logger;
+
+    public UsersController(ILogger<UsersController> logger)
+    {
+        this.logger = logger;
+    }
 
     [Route("SignUp")]
     public IActionResult SignUpView(CancellationToken cancellationToken = default)

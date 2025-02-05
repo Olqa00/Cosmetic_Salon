@@ -1,4 +1,4 @@
-﻿namespace CosmeticSalon.Application.Commands;
+﻿namespace CosmeticSalon.Application.Users.Commands;
 
 public sealed record class SignUp : IRequest
 {

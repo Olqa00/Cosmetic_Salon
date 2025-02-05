@@ -1,6 +1,6 @@
-﻿namespace CosmeticSalon.Application.Exceptions;
+﻿namespace CosmeticSalon.Domain.Exceptions;
 
-public sealed class UserIdAlreadyExistsException : ApplicationException
+public sealed class UserIdAlreadyExistsException : DomainException
 {
     public UserIdAlreadyExistsException(UserId id)
         : base($"User with id {id.Value} already exists")

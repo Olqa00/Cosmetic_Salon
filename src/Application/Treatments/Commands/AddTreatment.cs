@@ -1,4 +1,4 @@
-﻿namespace CosmeticSalon.Application.Commands;
+﻿namespace CosmeticSalon.Application.Treatments.Commands;
 
 public sealed record class AddTreatment : IRequest
 {

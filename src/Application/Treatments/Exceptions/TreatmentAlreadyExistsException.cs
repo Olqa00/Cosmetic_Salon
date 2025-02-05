@@ -1,4 +1,6 @@
-﻿namespace CosmeticSalon.Application.Exceptions;
+﻿namespace CosmeticSalon.Application.Treatments.Exceptions;
+
+using CosmeticSalon.Application.Common.Exceptions;
 
 public sealed class TreatmentAlreadyExistsException : ApplicationException
 {

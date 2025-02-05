@@ -1,8 +1,8 @@
 ﻿namespace CosmeticSalon.WebUI.Controllers;
 
-using CosmeticSalon.Application.Commands;
-using CosmeticSalon.Application.Queries;
-using CosmeticSalon.Application.ViewModels;
+using CosmeticSalon.Application.Treatments.Commands;
+using CosmeticSalon.Application.Treatments.Queries;
+using CosmeticSalon.Application.Treatments.ViewModels;
 
 [ApiController]
 public sealed class TreatmentsController : ApiController

@@ -1,8 +1,8 @@
 ﻿namespace CosmeticSalon.Infrastructure.AutoMapper.Profiles.Treatments;
 
 using global::AutoMapper;
-using Add = CosmeticSalon.Application.Commands.AddTreatment;
-using ViewModel = CosmeticSalon.Application.ViewModels.Treatment;
+using Add = CosmeticSalon.Application.Treatments.Commands.AddTreatment;
+using ViewModel = CosmeticSalon.Application.Treatments.ViewModels.Treatment;
 
 internal sealed class TreatmentViewModelProfile : Profile
 {
