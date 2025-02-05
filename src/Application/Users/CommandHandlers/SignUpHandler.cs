@@ -26,9 +26,9 @@ internal sealed class SignUpHandler : IRequestHandler<SignUp>
         var email = new Email(command.Email);
         var userId = new UserId(command.UserId);
 
-        await this.userService.CheckEmailExistenceAsync(email, cancellationToken);
-        await this.userService.CheckUserIdExistenceAsync(userId, cancellationToken);
-        await this.userService.CheckUsernameExistenceAsync(command.Username, cancellationToken);
+        await this.userService.CheckEmailExistsAsync(email, cancellationToken);
+        await this.userService.CheckUserIdExistsAsync(userId, cancellationToken);
+        await this.userService.CheckUsernameExistsAsync(command.Username, cancellationToken);
 
         var securedPassword = this.passwordManager.Secure(command.Password);
 
