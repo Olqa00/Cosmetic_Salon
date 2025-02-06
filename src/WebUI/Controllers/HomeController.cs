@@ -5,13 +5,6 @@ using CosmeticSalon.WebUI.Models;
 
 public sealed class HomeController : ApiController
 {
-    private readonly ILogger<HomeController> logger;
-
-    public HomeController(ILogger<HomeController> logger)
-    {
-        this.logger = logger;
-    }
-
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

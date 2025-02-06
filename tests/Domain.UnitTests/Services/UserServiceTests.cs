@@ -35,7 +35,7 @@ public sealed class UserServiceTests
         // Arrange
         this.userRepository
             .GetByEmailAsync(USER_EMAIL)
-            .Returns((UserEntity?)null);
+            .ReturnsNull();
 
         var userService = new UserService(this.logger, this.userRepository);
 
@@ -49,7 +49,7 @@ public sealed class UserServiceTests
     }
 
     [TestMethod]
-    public async Task CheckEmailExistsAsync_Should_ThrowsEmailAlreadyExistsException()
+    public async Task CheckEmailExistsAsync_Should_ThrowEmailAlreadyExistsException()
     {
         // Arrange
         this.userRepository
@@ -73,7 +73,7 @@ public sealed class UserServiceTests
         // Arrange
         this.userRepository
             .GetByIdAsync(USER_ID)
-            .Returns((UserEntity?)null);
+            .ReturnsNull();
 
         var userService = new UserService(this.logger, this.userRepository);
 
@@ -87,7 +87,7 @@ public sealed class UserServiceTests
     }
 
     [TestMethod]
-    public async Task CheckUserIdExistsAsync_Should_ThrowsUserIdAlreadyExistsException()
+    public async Task CheckUserIdExistsAsync_Should_ThrowUserIdAlreadyExistsException()
     {
         // Arrange
         this.userRepository
@@ -111,7 +111,7 @@ public sealed class UserServiceTests
         // Arrange
         this.userRepository
             .GetByUsernameAsync(USERNAME)
-            .Returns((UserEntity?)null);
+            .ReturnsNull();
 
         var userService = new UserService(this.logger, this.userRepository);
 
@@ -125,7 +125,7 @@ public sealed class UserServiceTests
     }
 
     [TestMethod]
-    public async Task CheckUsernameExistsAsync_Should_ThrowsUsernameAlreadyExistsException()
+    public async Task CheckUsernameExistsAsync_Should_ThrowUsernameAlreadyExistsException()
     {
         // Arrange
         this.userRepository

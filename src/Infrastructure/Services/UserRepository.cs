@@ -40,7 +40,7 @@ internal sealed class UserRepository : IUserRepository
         this.logger.LogInformation("Try to get user by email from db");
 
         var result = await this.users
-            .FirstOrDefaultAsync(user => user.Email == email.Value);
+            .FirstOrDefaultAsync(user => user.Email == email);
 
         return result;
     }

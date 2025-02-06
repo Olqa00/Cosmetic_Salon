@@ -13,6 +13,7 @@
   <ItemGroup>
     <Using Include="CosmeticSalon.Domain.Types" />
     <Using Include="Microsoft.Extensions.Logging" />
+    <Using Include="System.Text.RegularExpressions" />
   </ItemGroup>
 
  <ItemGroup>
