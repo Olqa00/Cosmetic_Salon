@@ -1,13 +1,15 @@
 ﻿namespace CosmeticSalon.Domain.ValueObjects;
 
-using System.Text.RegularExpressions;
 using CosmeticSalon.Domain.Exceptions;
 
 public sealed record Email
 {
-    private static readonly Regex Regex = new(
+    private static readonly TimeSpan MATCH_TIMEOUT = TimeSpan.FromMilliseconds(100);
+
+    private static readonly Regex REGEX = new(
         @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" + @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$",
-        RegexOptions.Compiled);
+        RegexOptions.Compiled,
+        MATCH_TIMEOUT);
 
     public string Value { get; }
 
@@ -25,17 +27,20 @@ public sealed record Email
 
         value = value.ToLowerInvariant();
 
-        if (!Regex.IsMatch(value))
+        try
         {
-            throw new InvalidEmailException(value);
+            if (REGEX.IsMatch(value) is false)
+            {
+                throw new InvalidEmailException(value);
+            }
+        }
+        catch (RegexMatchTimeoutException)
+        {
+            throw new EmailVerificationTimeoutException(value);
         }
 
         this.Value = value;
     }
 
     public override string ToString() => this.Value;
-
-    public static implicit operator string(Email email) => email.Value;
-
-    public static implicit operator Email(string email) => new(email);
 }

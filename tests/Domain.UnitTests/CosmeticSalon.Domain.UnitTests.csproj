@@ -24,6 +24,7 @@
 		<Using Include="Microsoft.Extensions.Logging.Abstractions" />
 		<Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
 		<Using Include="NSubstitute" />
+		<Using Include="NSubstitute.ReturnsExtensions" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -27,10 +27,5 @@ public sealed record Role
 
     public static Role Admin() => new("admin");
     public static Role Employee() => new("employee");
-
-    public static implicit operator Role(string value) => new(value);
-
-    public static implicit operator string(Role value) => value?.Value;
-
     public static Role User() => new("user");
 }
