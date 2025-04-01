@@ -4,7 +4,7 @@ using CosmeticSalon.Application.Users.Commands;
 using CosmeticSalon.Application.Users.ViewModels;
 
 [ApiController]
-public sealed class UsersController : ApiController
+public sealed class UsersController : BaseController
 {
     private readonly ILogger<UsersController> logger;
 
