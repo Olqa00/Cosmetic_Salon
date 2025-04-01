@@ -2,7 +2,7 @@
 
 using AutoMapper;
 
-public class ApiController : Controller
+public class BaseController : Controller
 {
     private IMapper? mapper;
     private ISender? mediator;

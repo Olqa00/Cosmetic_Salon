@@ -5,7 +5,7 @@ using CosmeticSalon.Application.Treatments.Queries;
 using CosmeticSalon.Application.Treatments.ViewModels;
 
 [ApiController]
-public sealed class TreatmentsController : ApiController
+public sealed class TreatmentsController : BaseController
 {
     private readonly ILogger<TreatmentsController> logger;
 

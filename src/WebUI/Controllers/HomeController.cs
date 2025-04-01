@@ -3,7 +3,7 @@ namespace CosmeticSalon.WebUI.Controllers;
 using System.Diagnostics;
 using CosmeticSalon.WebUI.Models;
 
-public sealed class HomeController : ApiController
+public sealed class HomeController : BaseController
 {
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
