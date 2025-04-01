@@ -3,7 +3,7 @@
 using System.Reflection;
 using CosmeticSalon.Domain.Interfaces;
 using CosmeticSalon.Infrastructure.DAL;
-using CosmeticSalon.Infrastructure.Security;
+using CosmeticSalon.Infrastructure.Identity;
 using CosmeticSalon.Infrastructure.Services;
 using Microsoft.Extensions.Configuration;
 
@@ -16,11 +16,10 @@ public static class DependencyInjection
 
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-        services.AddSecurity();
         services.AddSqlServer(configuration);
+        services.AddUserIdentity(configuration);
 
         services.AddScoped<ITreatmentRepository, TreatmentRepository>();
-        services.AddScoped<IUserRepository, UserRepository>();
 
         return services;
     }

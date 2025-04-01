@@ -1,4 +1,4 @@
-﻿namespace CosmeticSalon.Infrastructure.DAL.Configuration;
+﻿namespace CosmeticSalon.Infrastructure.Identity.Configuration;
 
 using CosmeticSalon.Domain.Entities;
 using CosmeticSalon.Domain.ValueObjects;

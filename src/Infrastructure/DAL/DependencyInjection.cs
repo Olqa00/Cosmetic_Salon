@@ -1,5 +1,6 @@
 ﻿namespace CosmeticSalon.Infrastructure.DAL;
 
+using CosmeticSalon.Infrastructure.Identity;
 using Microsoft.Extensions.Configuration;
 
 public static class DependencyInjection
@@ -13,6 +14,7 @@ public static class DependencyInjection
         var options = configuration.GetOptions<SqlServerOptions>(OPTIONS_SECTION_NAME);
 
         services.AddDbContext<CosmeticSalonDbContext>(option => option.UseSqlServer(options.ConnectionString));
+        services.AddDbContext<UserDbContext>(option => option.UseSqlServer(options.ConnectionString));
 
         return services;
     }

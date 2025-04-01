@@ -4,8 +4,6 @@ using CosmeticSalon.Domain.Exceptions;
 
 public sealed record Role
 {
-    public static IEnumerable<string> AvailableRoles { get; } = ["admin", "employee", "user"];
-
     public string Value { get; }
 
     public Role(string value)
@@ -15,7 +13,7 @@ public sealed record Role
             throw new InvalidRoleException(value);
         }
 
-        if (AvailableRoles.Contains(value) is false)
+        if (SystemRoles.All.Contains(value) is false)
         {
             throw new InvalidRoleException(value);
         }
