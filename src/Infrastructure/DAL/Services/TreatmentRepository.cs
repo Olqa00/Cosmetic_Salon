@@ -1,15 +1,15 @@
-﻿namespace CosmeticSalon.Infrastructure.Services;
+﻿namespace CosmeticSalon.Infrastructure.DAL.Services;
 
 using CosmeticSalon.Domain.Entities;
 using CosmeticSalon.Domain.Interfaces;
-using CosmeticSalon.Infrastructure.DAL;
+using CosmeticSalon.Infrastructure.DAL.Models;
 using CosmeticSalon.Infrastructure.Extensions;
 
 internal sealed class TreatmentRepository : ITreatmentRepository
 {
     private readonly CosmeticSalonDbContext dbContext;
     private readonly ILogger<TreatmentRepository> logger;
-    private readonly DbSet<TreatmentEntity> treatments;
+    private readonly DbSet<TreatmentDbModel> treatments;
 
     public TreatmentRepository(CosmeticSalonDbContext dbContext, ILogger<TreatmentRepository> logger)
     {
@@ -26,7 +26,26 @@ internal sealed class TreatmentRepository : ITreatmentRepository
 
         this.logger.LogInformation("Try to add treatment to db");
 
-        await this.dbContext.AddAsync(entity);
+        var treatmentUser = new TreatmentUserDbModel
+        {
+            TreatmentId = entity.Id.Value,
+            UserId = Guid.NewGuid(),
+        };
+
+        var list = new List<TreatmentUserDbModel>
+        {
+            treatmentUser,
+        };
+
+        var dbModel = new TreatmentDbModel
+        {
+            Id = entity.Id.Value,
+            Name = entity.Name,
+            Type = entity.Type,
+            TreatmentUsers = list,
+        };
+
+        await this.dbContext.AddAsync(dbModel);
         await this.dbContext.SaveChangesAsync();
     }
 
@@ -41,7 +60,9 @@ internal sealed class TreatmentRepository : ITreatmentRepository
         var result = await this.treatments
             .FindAsync(id);
 
-        return result;
+        var treatment = new TreatmentEntity(id, "", "");
+
+        return treatment;
     }
 
     public async Task<IReadOnlyList<TreatmentEntity>> GetTreatmentsAsync()
@@ -51,6 +72,15 @@ internal sealed class TreatmentRepository : ITreatmentRepository
         var result = await this.treatments
             .ToListAsync();
 
-        return result;
+        var id = new TreatmentId(Guid.NewGuid());
+
+        var treatment1 = new TreatmentEntity(id, "", "");
+
+        var treatments = new List<TreatmentEntity>
+        {
+            treatment1,
+        };
+
+        return treatments;
     }
 }

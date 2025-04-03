@@ -2,8 +2,8 @@
 
 using CosmeticSalon.Domain.Interfaces;
 using CosmeticSalon.Infrastructure.Identity.Models;
+using CosmeticSalon.Infrastructure.Identity.Services;
 using CosmeticSalon.Infrastructure.Identity.Settings;
-using CosmeticSalon.Infrastructure.Services;
 using Microsoft.Extensions.Configuration;
 
 public static class DependencyInjection
@@ -27,8 +27,8 @@ public static class DependencyInjection
             options.User.RequireUniqueEmail = accountConfiguration.RequireUniqueEmail;
         });
 
-        services.AddIdentity<UserIdentityModel, RoleModel>()
-            .AddEntityFrameworkStores<UserDbContext>()
+        services.AddIdentity<UserDbModel, RoleDbModel>()
+            .AddEntityFrameworkStores<IdentityUserContext>()
             .AddDefaultTokenProviders();
 
         services.AddScoped<IUserService, UserService>();

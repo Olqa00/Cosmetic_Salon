@@ -3,9 +3,9 @@
 using CosmeticSalon.Domain.Exceptions;
 using CosmeticSalon.Domain.ValueObjects;
 
-public sealed class RoleModel : IdentityRole
+internal sealed class RoleDbModel : IdentityRole<Guid>
 {
-    public RoleModel(string name)
+    public RoleDbModel(string name)
     {
         if (string.IsNullOrWhiteSpace(name) || name.Length > 30)
         {

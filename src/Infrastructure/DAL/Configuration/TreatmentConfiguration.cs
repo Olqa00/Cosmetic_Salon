@@ -1,14 +1,16 @@
 ﻿namespace CosmeticSalon.Infrastructure.DAL.Configuration;
 
-using CosmeticSalon.Domain.Entities;
+using CosmeticSalon.Infrastructure.DAL.Models;
 
-internal sealed class TreatmentConfiguration : IEntityTypeConfiguration<TreatmentEntity>
+internal sealed class TreatmentConfiguration : IEntityTypeConfiguration<TreatmentDbModel>
 {
-    public void Configure(EntityTypeBuilder<TreatmentEntity> builder)
+    public void Configure(EntityTypeBuilder<TreatmentDbModel> builder)
     {
-        builder.HasKey(treatment => treatment.Id);
+        builder.HasKey(treatment => treatment.RecordId);
 
-        builder.Property(treatment => treatment.Id)
-            .HasConversion(id => id.Value, id => new TreatmentId(id));
+        builder.HasMany(treatment => treatment.TreatmentUsers)
+            .WithOne(treatment => treatment.Treatment)
+            .HasForeignKey(treatmentUser => treatmentUser.RecordId)
+            ;
     }
 }

@@ -14,7 +14,7 @@ public static class DependencyInjection
         var options = configuration.GetOptions<SqlServerOptions>(OPTIONS_SECTION_NAME);
 
         services.AddDbContext<CosmeticSalonDbContext>(option => option.UseSqlServer(options.ConnectionString));
-        services.AddDbContext<UserDbContext>(option => option.UseSqlServer(options.ConnectionString));
+        services.AddDbContext<IdentityUserContext>(option => option.UseSqlServer(options.ConnectionString));
 
         return services;
     }

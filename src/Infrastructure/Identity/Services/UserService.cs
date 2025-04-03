@@ -1,4 +1,4 @@
-﻿namespace CosmeticSalon.Infrastructure.Services;
+﻿namespace CosmeticSalon.Infrastructure.Identity.Services;
 
 using CosmeticSalon.Domain.Entities;
 using CosmeticSalon.Domain.Interfaces;
@@ -7,9 +7,9 @@ using CosmeticSalon.Infrastructure.Identity.Models;
 internal sealed class UserService : IUserService
 {
     private readonly ILogger<UserService> logger;
-    private readonly UserManager<UserIdentityModel> userManager;
+    private readonly UserManager<UserDbModel> userManager;
 
-    public UserService(UserManager<UserIdentityModel> userManager, ILogger<UserService> logger)
+    public UserService(UserManager<UserDbModel> userManager, ILogger<UserService> logger)
     {
         this.logger = logger;
         this.userManager = userManager;
@@ -32,12 +32,12 @@ internal sealed class UserService : IUserService
 
     public async Task RegisterAsync(UserEntity entity, CancellationToken cancellationToken = default)
     {
-        var userModel = new UserIdentityModel
+        var userModel = new UserDbModel
         {
             AccessFailedCount = 3,
             Email = entity.Email.Value,
             EmailConfirmed = false,
-            Id = entity.Id.Value.ToString(),
+            Id = entity.Id.Value,
             LockoutEnabled = false,
             FirstName = entity.FirstName,
             LastName = entity.LastName,

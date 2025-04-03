@@ -3,8 +3,8 @@
 using System.Reflection;
 using CosmeticSalon.Domain.Interfaces;
 using CosmeticSalon.Infrastructure.DAL;
+using CosmeticSalon.Infrastructure.DAL.Services;
 using CosmeticSalon.Infrastructure.Identity;
-using CosmeticSalon.Infrastructure.Services;
 using Microsoft.Extensions.Configuration;
 
 public static class DependencyInjection

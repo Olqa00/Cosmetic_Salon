@@ -1,4 +1,4 @@
-﻿namespace CosmeticSalon.Infrastructure.QueryHandlers;
+﻿namespace CosmeticSalon.Infrastructure.DAL.QueryHandlers;
 
 using CosmeticSalon.Application.Treatments.Queries;
 using CosmeticSalon.Application.Treatments.ViewModels;

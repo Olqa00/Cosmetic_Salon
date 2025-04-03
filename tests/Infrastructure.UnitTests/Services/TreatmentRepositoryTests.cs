@@ -2,7 +2,7 @@
 
 using CosmeticSalon.Domain.Entities;
 using CosmeticSalon.Infrastructure.DAL;
-using CosmeticSalon.Infrastructure.Services;
+using CosmeticSalon.Infrastructure.DAL.Services;
 
 [TestClass]
 public sealed class TreatmentRepositoryTests
