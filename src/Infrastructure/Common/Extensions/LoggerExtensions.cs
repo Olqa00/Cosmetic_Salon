@@ -1,4 +1,4 @@
-﻿namespace CosmeticSalon.Infrastructure.Extensions;
+﻿namespace CosmeticSalon.Infrastructure.Common.Extensions;
 
 public static class LoggerExtensions
 {

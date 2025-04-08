@@ -2,20 +2,24 @@
 
 using CosmeticSalon.Domain.Entities;
 using CosmeticSalon.Domain.Interfaces;
+using CosmeticSalon.Infrastructure.Common.Extensions;
+using CosmeticSalon.Infrastructure.DAL.Extensions;
 using CosmeticSalon.Infrastructure.DAL.Models;
-using CosmeticSalon.Infrastructure.Extensions;
+using CosmeticSalon.Infrastructure.Identity.Interfaces;
 
 internal sealed class TreatmentRepository : ITreatmentRepository
 {
     private readonly CosmeticSalonDbContext dbContext;
     private readonly ILogger<TreatmentRepository> logger;
     private readonly DbSet<TreatmentDbModel> treatments;
+    private readonly IUserMappingService userMappingService;
 
-    public TreatmentRepository(CosmeticSalonDbContext dbContext, ILogger<TreatmentRepository> logger)
+    public TreatmentRepository(CosmeticSalonDbContext dbContext, ILogger<TreatmentRepository> logger, IUserMappingService userMappingService)
     {
         this.dbContext = dbContext;
         this.logger = logger;
         this.treatments = dbContext.Treatments;
+        this.userMappingService = userMappingService;
     }
 
     public async Task AddTreatmentAsync(TreatmentEntity entity)
@@ -26,24 +30,7 @@ internal sealed class TreatmentRepository : ITreatmentRepository
 
         this.logger.LogInformation("Try to add treatment to db");
 
-        var treatmentUser = new TreatmentUserDbModel
-        {
-            TreatmentId = entity.Id.Value,
-            UserId = Guid.NewGuid(),
-        };
-
-        var list = new List<TreatmentUserDbModel>
-        {
-            treatmentUser,
-        };
-
-        var dbModel = new TreatmentDbModel
-        {
-            Id = entity.Id.Value,
-            Name = entity.Name,
-            Type = entity.Type,
-            TreatmentUsers = list,
-        };
+        var dbModel = entity.ToDbModel();
 
         await this.dbContext.AddAsync(dbModel);
         await this.dbContext.SaveChangesAsync();
@@ -57,30 +44,36 @@ internal sealed class TreatmentRepository : ITreatmentRepository
 
         this.logger.LogInformation("Try to get treatment from db");
 
-        var result = await this.treatments
+        var dbModel = await this.treatments
             .FindAsync(id);
 
-        var treatment = new TreatmentEntity(id, "", "");
+        this.logger.LogInformation("Try to map users");
 
-        return treatment;
+        var users = await this.userMappingService.MapToUserEntitiesAsync(dbModel.TreatmentUsers);
+
+        var result = dbModel?.ToEntity(users);
+
+        return result;
     }
 
     public async Task<IReadOnlyList<TreatmentEntity>> GetTreatmentsAsync()
     {
         this.logger.LogInformation("Try to get treatments from db");
 
-        var result = await this.treatments
+        var treatmentDbModels = await this.treatments
             .ToListAsync();
 
-        var id = new TreatmentId(Guid.NewGuid());
+        var treatmentEntities = new List<TreatmentEntity>();
 
-        var treatment1 = new TreatmentEntity(id, "", "");
-
-        var treatments = new List<TreatmentEntity>
+        foreach (var treatmentDbModel in treatmentDbModels)
         {
-            treatment1,
-        };
+            this.logger.LogInformation("Try to map users");
 
-        return treatments;
+            var users = await this.userMappingService.MapToUserEntitiesAsync(treatmentDbModel.TreatmentUsers);
+            var treatmentEntity = treatmentDbModel.ToEntity(users);
+            treatmentEntities.Add(treatmentEntity);
+        }
+
+        return treatmentEntities;
     }
 }

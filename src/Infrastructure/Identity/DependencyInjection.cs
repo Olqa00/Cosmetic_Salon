@@ -1,6 +1,7 @@
 ﻿namespace CosmeticSalon.Infrastructure.Identity;
 
 using CosmeticSalon.Domain.Interfaces;
+using CosmeticSalon.Infrastructure.Identity.Interfaces;
 using CosmeticSalon.Infrastructure.Identity.Models;
 using CosmeticSalon.Infrastructure.Identity.Services;
 using CosmeticSalon.Infrastructure.Identity.Settings;
@@ -32,6 +33,7 @@ public static class DependencyInjection
             .AddDefaultTokenProviders();
 
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IUserMappingService, UserMappingService>();
 
         return services;
     }

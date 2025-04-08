@@ -2,17 +2,21 @@
 
 using CosmeticSalon.Domain.Entities;
 using CosmeticSalon.Domain.Interfaces;
+using CosmeticSalon.Domain.ValueObjects;
+using CosmeticSalon.Infrastructure.Identity.Interfaces;
 using CosmeticSalon.Infrastructure.Identity.Models;
 
 internal sealed class UserService : IUserService
 {
     private readonly ILogger<UserService> logger;
     private readonly UserManager<UserDbModel> userManager;
+    private readonly IUserMappingService userMappingService;
 
-    public UserService(UserManager<UserDbModel> userManager, ILogger<UserService> logger)
+    public UserService(UserManager<UserDbModel> userManager, ILogger<UserService> logger, IUserMappingService userMappingService)
     {
         this.logger = logger;
         this.userManager = userManager;
+        this.userMappingService = userMappingService;
     }
 
     public Task<bool> CheckPasswordAsync(string password, string userName, CancellationToken cancellationToken = default)
@@ -21,8 +25,25 @@ internal sealed class UserService : IUserService
     public Task<UserEntity> GetUserByEmailAsync(string email, CancellationToken cancellationToken = default)
         => throw new NotImplementedException();
 
-    public Task<UserEntity> GetUserByIdAsync(string id, CancellationToken cancellationToken = default)
-        => throw new NotImplementedException();
+    public async Task<UserEntity> GetUserByIdAsync(string id, CancellationToken cancellationToken = default)
+    {
+        var userDbModel = await this.userManager.FindByIdAsync(id);
+
+        if (userDbModel is null)
+        {
+            return null;
+        }
+
+        var userRoles = await this.userManager.GetRolesAsync(userDbModel);
+        var userRole = userRoles.FirstOrDefault();
+        var userId = new UserId(userDbModel.Id);
+        var email = new Email(userDbModel.Email);
+        var role = new Role(userRole);
+
+        var entity = new UserEntity(userId, email, userDbModel.UserName, userDbModel.PasswordHash, role);
+
+        return entity;
+    }
 
     public Task<UserEntity> GetUserByNameAsync(string userName, CancellationToken cancellationToken = default)
         => throw new NotImplementedException();

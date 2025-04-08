@@ -1,6 +1,6 @@
 ﻿namespace CosmeticSalon.Infrastructure.DAL.Models;
 
-internal sealed class TreatmentDbModel
+public sealed class TreatmentDbModel
 {
     public Guid Id { get; set; }
     public string Name { get; set; }
