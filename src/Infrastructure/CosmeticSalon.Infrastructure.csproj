@@ -29,6 +29,7 @@
 
    <ItemGroup>
     <InternalsVisibleTo Include="CosmeticSalon.Infrastructure.UnitTests" />
+    <InternalsVisibleTo Include="CosmeticSalon.IntegrationTests" />
   </ItemGroup>
 
 </Project>

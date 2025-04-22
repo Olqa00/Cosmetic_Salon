@@ -45,7 +45,7 @@ internal sealed class TreatmentRepository : ITreatmentRepository
         this.logger.LogInformation("Try to get treatment from db");
 
         var dbModel = await this.treatments
-            .FindAsync(id);
+            .FirstOrDefaultAsync(treatment => treatment.Id == id.Value);
 
         this.logger.LogInformation("Try to map users");
 

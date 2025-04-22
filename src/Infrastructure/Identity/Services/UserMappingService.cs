@@ -1,6 +1,7 @@
 ﻿namespace CosmeticSalon.Infrastructure.Identity.Services;
 
 using CosmeticSalon.Domain.Entities;
+using CosmeticSalon.Domain.Interfaces;
 using CosmeticSalon.Infrastructure.Common.Extensions;
 using CosmeticSalon.Infrastructure.DAL.Models;
 using CosmeticSalon.Infrastructure.Identity.Interfaces;
@@ -8,9 +9,9 @@ using CosmeticSalon.Infrastructure.Identity.Interfaces;
 internal sealed class UserMappingService : IUserMappingService
 {
     private readonly ILogger<UserMappingService> logger;
-    private readonly UserService userService;
+    private readonly IUserService userService;
 
-    public UserMappingService(ILogger<UserMappingService> logger, UserService userService)
+    public UserMappingService(ILogger<UserMappingService> logger, IUserService userService)
     {
         this.logger = logger;
         this.userService = userService;

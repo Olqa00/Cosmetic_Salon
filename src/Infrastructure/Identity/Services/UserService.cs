@@ -3,20 +3,17 @@
 using CosmeticSalon.Domain.Entities;
 using CosmeticSalon.Domain.Interfaces;
 using CosmeticSalon.Domain.ValueObjects;
-using CosmeticSalon.Infrastructure.Identity.Interfaces;
 using CosmeticSalon.Infrastructure.Identity.Models;
 
 internal sealed class UserService : IUserService
 {
     private readonly ILogger<UserService> logger;
     private readonly UserManager<UserDbModel> userManager;
-    private readonly IUserMappingService userMappingService;
 
-    public UserService(UserManager<UserDbModel> userManager, ILogger<UserService> logger, IUserMappingService userMappingService)
+    public UserService(UserManager<UserDbModel> userManager, ILogger<UserService> logger)
     {
         this.logger = logger;
         this.userManager = userManager;
-        this.userMappingService = userMappingService;
     }
 
     public Task<bool> CheckPasswordAsync(string password, string userName, CancellationToken cancellationToken = default)
