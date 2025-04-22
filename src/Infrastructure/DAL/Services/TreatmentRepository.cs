@@ -49,9 +49,16 @@ internal sealed class TreatmentRepository : ITreatmentRepository
 
         this.logger.LogInformation("Try to map users");
 
-        var users = await this.userMappingService.MapToUserEntitiesAsync(dbModel.TreatmentUsers);
+        var treatmentUsers = new List<UserEntity>();
 
-        var result = dbModel?.ToEntity(users);
+        if (dbModel?.TreatmentUsers is not null)
+        {
+            var users = await this.userMappingService.MapToUserEntitiesAsync(dbModel.TreatmentUsers);
+
+            treatmentUsers.AddRange(users);
+        }
+
+        var result = dbModel?.ToEntity(treatmentUsers);
 
         return result;
     }

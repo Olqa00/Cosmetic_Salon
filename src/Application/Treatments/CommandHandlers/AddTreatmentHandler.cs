@@ -2,6 +2,7 @@
 
 using CosmeticSalon.Application.Common.Extensions;
 using CosmeticSalon.Application.Treatments.Commands;
+using CosmeticSalon.Application.Treatments.Exceptions;
 using CosmeticSalon.Domain.Entities;
 using CosmeticSalon.Domain.Interfaces;
 
@@ -25,12 +26,12 @@ internal sealed class AddTreatmentHandler : IRequestHandler<AddTreatment>
         this.logger.LogInformation("Try to add treatment");
 
         var treatmentId = new TreatmentId(request.Id);
-        //var treatment = await this.repository.GetByIdAsync(treatmentId);
+        var treatment = await this.repository.GetByIdAsync(treatmentId);
 
-        //if (treatment is not null)
-        //{
-        //    throw new TreatmentAlreadyExistsException(treatmentId);
-        //}
+        if (treatment is not null)
+        {
+            throw new TreatmentAlreadyExistsException(treatmentId);
+        }
 
         var treatmentEntity = new TreatmentEntity(treatmentId, request.Type, request.Name);
 
