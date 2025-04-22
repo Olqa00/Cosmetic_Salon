@@ -1,7 +1,9 @@
 ﻿namespace CosmeticSalon.Application.Users.CommandHandlers;
 
 using CosmeticSalon.Application.Users.Commands;
+using CosmeticSalon.Domain.Entities;
 using CosmeticSalon.Domain.Interfaces;
+using CosmeticSalon.Domain.ValueObjects;
 
 internal sealed class SignUpHandler : IRequestHandler<SignUp>
 {
@@ -18,19 +20,11 @@ internal sealed class SignUpHandler : IRequestHandler<SignUp>
     {
         this.logger.LogInformation("Try to sign up");
 
-        //var email = new Email(command.Email);
-        //var userId = new UserId(command.UserId);
+        var userId = new UserId(command.UserId);
+        var email = new Email(command.Email);
 
-        //await this.userService.CheckEmailExistsAsync(email, cancellationToken);
-        //await this.userService.CheckUserIdExistsAsync(userId, cancellationToken);
-        //await this.userService.CheckUsernameExistsAsync(command.Username, cancellationToken);
+        var user = new UserEntity(userId, email, command.Username, command.Password, Role.User());
 
-        //var securedPassword = "this.passwordManager.Secure(command.Password)";
-
-        //var userRole = Role.User();
-
-        //var user = new UserEntity(userId, email, command.Username, securedPassword, userRole);
-
-        //await this.userService.CreateUserAsync(user, cancellationToken);
+        await this.userService.RegisterAsync(user, cancellationToken);
     }
 }
