@@ -22,8 +22,14 @@ namespace CosmeticSalon.Infrastructure.DAL.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("CosmeticSalon.Domain.Entities.TreatmentEntity", b =>
+            modelBuilder.Entity("CosmeticSalon.Infrastructure.Treatments.Models.TreatmentDbModel", b =>
                 {
+                    b.Property<int>("RecordId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RecordId"));
+
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
@@ -35,80 +41,41 @@ namespace CosmeticSalon.Infrastructure.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("RecordId");
 
                     b.ToTable("Treatments");
                 });
 
-            modelBuilder.Entity("CosmeticSalon.Domain.Entities.UserEntity", b =>
+            modelBuilder.Entity("CosmeticSalon.Infrastructure.Treatments.Models.TreatmentUserDbModel", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("RecordId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("TreatmentId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("RecordId");
 
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.HasIndex("Username")
-                        .IsUnique();
-
-                    b.ToTable("Users");
+                    b.ToTable("TreatmentUsers");
                 });
 
-            modelBuilder.Entity("TreatmentEntityUserEntity", b =>
+            modelBuilder.Entity("CosmeticSalon.Infrastructure.Treatments.Models.TreatmentUserDbModel", b =>
                 {
-                    b.Property<Guid>("EmployeesId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("TreatmentsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("EmployeesId", "TreatmentsId");
-
-                    b.HasIndex("TreatmentsId");
-
-                    b.ToTable("TreatmentEntityUserEntity");
-                });
-
-            modelBuilder.Entity("TreatmentEntityUserEntity", b =>
-                {
-                    b.HasOne("CosmeticSalon.Domain.Entities.UserEntity", null)
-                        .WithMany()
-                        .HasForeignKey("EmployeesId")
+                    b.HasOne("CosmeticSalon.Infrastructure.Treatments.Models.TreatmentDbModel", "Treatment")
+                        .WithMany("TreatmentUsers")
+                        .HasForeignKey("RecordId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CosmeticSalon.Domain.Entities.TreatmentEntity", null)
-                        .WithMany()
-                        .HasForeignKey("TreatmentsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Treatment");
+                });
+
+            modelBuilder.Entity("CosmeticSalon.Infrastructure.Treatments.Models.TreatmentDbModel", b =>
+                {
+                    b.Navigation("TreatmentUsers");
                 });
 #pragma warning restore 612, 618
         }

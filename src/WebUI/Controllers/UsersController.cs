@@ -1,6 +1,7 @@
 ﻿namespace CosmeticSalon.WebUI.Controllers;
 
 using CosmeticSalon.Application.Users.Commands;
+using CosmeticSalon.Application.Users.Queries;
 using CosmeticSalon.Application.Users.ViewModels;
 
 [ApiController]
@@ -19,9 +20,14 @@ public sealed class UsersController : BaseController
         return this.View();
     }
 
-    [HttpPost, Route("SignUp")]
+    [HttpPost, Route("SignUp"), ValidateAntiForgeryToken]
     public async Task<IActionResult> SignUpView([FromForm] SignUpUser user, CancellationToken cancellationToken = default)
     {
+        if (this.ModelState.IsValid is false)
+        {
+            return this.View(user);
+        }
+
         try
         {
             var id = Guid.NewGuid();
@@ -30,7 +36,7 @@ public sealed class UsersController : BaseController
             var command = this.Mapper.Map<SignUp>(user);
             await this.Mediator.Send(command, cancellationToken);
 
-            return await Task.FromResult(this.RedirectToPage("Index"));
+            return await Task.FromResult(this.RedirectToAction(nameof(this.UsersView)));
         }
         catch (Exception exception)
         {
@@ -38,5 +44,15 @@ public sealed class UsersController : BaseController
 
             return await Task.FromResult(this.View());
         }
+    }
+
+    [HttpGet, Route("GetUsers")]
+    public async Task<IActionResult> UsersView(CancellationToken cancellationToken = default)
+    {
+        var query = new GetUsers();
+
+        var users = await this.Mediator.Send(query, cancellationToken);
+
+        return await Task.FromResult(this.View(users));
     }
 }

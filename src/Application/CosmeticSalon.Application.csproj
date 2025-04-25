@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <InternalsVisibleTo Include="CosmeticSalon.Application.UnitTests" />
+    <InternalsVisibleTo Include="CosmeticSalon.IntegrationTests" />
   </ItemGroup>
 
 </Project>

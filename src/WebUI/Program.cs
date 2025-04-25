@@ -1,17 +1,15 @@
 using CosmeticSalon.Application;
-using CosmeticSalon.Domain;
 using CosmeticSalon.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Logging.AddSeq();
 
-builder.Services.AddControllersWithViews();
-
 builder.Services
-    .AddDomain()
     .AddApplication()
     .AddInfrastructure(builder.Configuration);
+
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
@@ -26,7 +24,9 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+app.MapControllers();
 
 app.UseStaticFiles();
 

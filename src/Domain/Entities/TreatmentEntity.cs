@@ -35,4 +35,9 @@ public sealed class TreatmentEntity
 
         this.Type = type;
     }
+
+    public void SetUser(UserEntity user)
+    {
+        this.Employees.Add(user);
+    }
 }

@@ -1,11 +1,12 @@
 ﻿namespace CosmeticSalon.Infrastructure.DAL;
 
-using CosmeticSalon.Domain.Entities;
+using CosmeticSalon.Infrastructure.DAL.Configuration;
+using CosmeticSalon.Infrastructure.DAL.Models;
 
 internal sealed class CosmeticSalonDbContext : DbContext
 {
-    public DbSet<TreatmentEntity> Treatments { get; set; }
-    public DbSet<UserEntity> Users { get; set; }
+    public DbSet<TreatmentDbModel> Treatments { get; set; }
+    public DbSet<TreatmentUserDbModel> TreatmentUsers { get; set; }
 
     public CosmeticSalonDbContext(DbContextOptions<CosmeticSalonDbContext> dbContextOptions)
         : base(dbContextOptions)
@@ -14,6 +15,7 @@ internal sealed class CosmeticSalonDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
+        modelBuilder.ApplyConfiguration(new TreatmentConfiguration());
+        modelBuilder.ApplyConfiguration(new TreatmentUserConfiguration());
     }
 }
