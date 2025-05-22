@@ -14,6 +14,12 @@ public sealed class UsersController : BaseController
         this.logger = logger;
     }
 
+    [Route("SignIn")]
+    public IActionResult SignInView(CancellationToken cancellationToken = default)
+    {
+        return this.View();
+    }
+
     [Route("SignUp")]
     public IActionResult SignUpView(CancellationToken cancellationToken = default)
     {

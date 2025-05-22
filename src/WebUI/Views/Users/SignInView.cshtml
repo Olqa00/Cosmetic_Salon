@@ -1,0 +1,21 @@
+﻿@model CosmeticSalon.Application.Users.ViewModels.SignInUser
+<body>
+    <h1>
+        Sign Up User
+    </h1>
+    <form asp-action="SignInView">
+        <div class="form-group">
+            <label asp-for="Username" class="control-label"></label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Password" class="control-label"></label>
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Sign In" />
+        </div>
+    </form>
+</body>
