@@ -16,8 +16,23 @@ internal sealed class UserService : IUserService
         this.userManager = userManager;
     }
 
-    public Task<bool> CheckPasswordAsync(string password, string userName, CancellationToken cancellationToken = default)
-        => throw new NotImplementedException();
+    public async Task<bool> CheckPasswordAsync(string password, string userName, CancellationToken cancellationToken = default)
+    {
+        this.logger.LogInformation("Try to check password for user {UserName}", userName);
+
+        var user = await this.userManager.FindByNameAsync(userName);
+
+        if (user is null)
+        {
+            this.logger.LogError("User {UserName} not found", userName);
+
+            return false;
+        }
+
+        var result = await this.userManager.CheckPasswordAsync(user, password);
+
+        return result;
+    }
 
     public Task<UserEntity> GetUserByEmailAsync(string email, CancellationToken cancellationToken = default)
         => throw new NotImplementedException();
