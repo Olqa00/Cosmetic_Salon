@@ -20,6 +20,29 @@ public sealed class UsersController : BaseController
         return this.View();
     }
 
+    [HttpPost, Route("SignIn"), ValidateAntiForgeryToken]
+    public async Task<IActionResult> SignInView([FromForm] SignInUser user, CancellationToken cancellationToken = default)
+    {
+        if (this.ModelState.IsValid is false)
+        {
+            return this.View(user);
+        }
+
+        try
+        {
+            var command = this.Mapper.Map<SignIn>(user);
+            await this.Mediator.Send(command, cancellationToken);
+
+            return await Task.FromResult(this.RedirectToAction(nameof(this.UsersView)));
+        }
+        catch (Exception exception)
+        {
+            this.logger.LogError(exception, "{Message}", exception.Message);
+
+            return await Task.FromResult(this.View());
+        }
+    }
+
     [Route("SignUp")]
     public IActionResult SignUpView(CancellationToken cancellationToken = default)
     {
